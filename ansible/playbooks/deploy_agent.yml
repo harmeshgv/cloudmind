@@ -1,0 +1,53 @@
+- name: Deploy CloudBot Agent FastAPI to all instances
+  hosts: agents
+  become: yes
+  tasks:
+    - name: Ensure Python3 and pip are installed
+      apt:
+        name:
+          - python3
+          - python3-pip
+        state: present
+        update_cache: yes
+
+    - name: Install FastAPI dependencies
+      pip:
+        name:
+          - fastapi
+          - "uvicorn[standard]"
+          - psutil
+          - python-dotenv
+        executable: pip3
+
+    - name: Create agent directory
+      file:
+        path: /opt/agent
+        state: directory
+        mode: '0755'
+
+    - name: Copy FastAPI app
+      copy:
+        src: ~/cloudbot-infra/agent_app/app.py
+        dest: /opt/agent/app.py
+        mode: '0644'
+
+    - name: Copy systemd service file (Uvicorn version)
+      copy:
+        src: ~/cloudbot-infra/agent_app/agent.service
+        dest: /etc/systemd/system/agent.service
+        mode: '0644'
+
+    - name: Reload systemd daemon
+      command: systemctl daemon-reload
+
+    - name: Restart and enable the agent service
+      systemd:
+        name: agent
+        enabled: yes
+        state: restarted
+
+    - name: Allow TCP port 8000 via UFW (optional)
+      shell: |
+        ufw allow 8000/tcp || true
+        ufw reload || true
+      ignore_errors: yes

@@ -1,0 +1,14 @@
+[Unit]
+Description=CloudBot Agent FastAPI
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/agent
+ExecStart=/usr/bin/python3 -m uvicorn app:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=5
+User=ubuntu
+Environment="PATH=/usr/bin"
+
+[Install]
+WantedBy=multi-user.target

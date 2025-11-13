@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+venv/
+.venv/
+
+# OS files
+.DS_Store
+
+# Terraform state
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform.lock.hcl
+
+# Cache / Logs
+*.log
+
+# SSH / Keys / Secrets
+*.pem
+*.pub
+id_rsa
+id_rsa.pub
+
+# Cloud metadata
+bot/agents.json
+
+# Streamlit internal
+**/.streamlit/
+
+# Local machine configs
+*.swp
+*.swo

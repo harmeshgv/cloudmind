@@ -2,7 +2,7 @@ import requests
 import json
 
 # ===== CONFIG =====
-AGENT_IPS = ["98.80.138.66", "3.236.163.110"]
+AGENT_IPS = ["44.211.32.144", "3.239.82.168"]
 PORT = 8000
 TIMEOUT = 5  # seconds
 

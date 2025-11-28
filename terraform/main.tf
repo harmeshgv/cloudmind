@@ -51,7 +51,7 @@ resource "aws_instance" "agents" {
   key_name               = aws_key_pair.cloudbot_key.key_name
   vpc_security_group_ids = [aws_security_group.cloudbot_sg.id]
   tags                   = { Name = "cloudbot-agent-${count.index + 1}" }
-}
+}       
 
 # Generate Ansible Inventory (no master IP)
 data "template_file" "inventory" {
